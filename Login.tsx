@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 
 const roles = ['Student', 'Teacher', 'Admin'];
 
-const Login: React.FC = () => {
+interface LoginProps {
+  onLogin: (role: string) => void;
+}
+
+const Login: React.FC<LoginProps> = ({ onLogin }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [role, setRole] = useState(roles[0]);
@@ -15,9 +19,8 @@ const Login: React.FC = () => {
       setError('Invalid username or password');
       return;
     }
-    // Store role and username in localStorage
-    localStorage.setItem('user', JSON.stringify({ username, role }));
-    window.location.reload(); // Reload to trigger role-based redirect
+    // Call the onLogin callback with the selected role
+    onLogin(role);
   };
 
   return (
