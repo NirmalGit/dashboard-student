@@ -94,45 +94,35 @@ export const PLAN: DayPlan[] = [
     { id: "2", title: "Digital Circuit & Design - Number systems & codes, Binary arithmetic, Boolean algebra and switching function (Unit 1)", type: "study", subject: "Digital Circuit & Design", completed: false },
     { id: "3", title: "Introduction to AI, Machine Learning & Robotics - Introduction to Artificial Intelligence Fundamentals (Unit 1)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
     { id: "4", title: "Computer System Organization - Computer Basics and CPU (Unit 1)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "5", title: "Electronic Device & Circuits - Semiconductor device, theory of P-N junction, temperature dependence and break down characteristics (Unit 1)", type: "study", subject: "Electronic Device & Circuits", completed: false },
-    { id: "6", title: "Programming Lab–I (Java Technologies) - Basic Java Features (Unit 1)", type: "study", subject: "Programming Lab–I (Java Technologies)", completed: false },
-    { id: "7", title: "Computer Engineering Workshop - Basic components (Unit 1)", type: "study", subject: "Computer Engineering Workshop", completed: false }
+    { id: "5", title: "Electronic Device & Circuits - Semiconductor device, theory of P-N junction, temperature dependence and break down characteristics (Unit 1)", type: "study", subject: "Electronic Device & Circuits", completed: false }
   ] },
   { day: "Tuesday", date: "2025-12-09", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "8", title: "Discrete Structures - Algebraic Structures: Definition, Properties, types (Unit 2)", type: "study", subject: "Discrete Structures", completed: false },
     { id: "9", title: "Digital Circuit & Design - Introduction to logic gates, Universal gate, Half adder, Half subtractor, Full adder, Full subtractor circuits (Unit 2)", type: "study", subject: "Digital Circuit & Design", completed: false },
     { id: "10", title: "Introduction to AI, Machine Learning & Robotics - Problem Solving State space search (Unit 2)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
     { id: "11", title: "Computer System Organization - Control Unit Organization (Unit 2)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "12", title: "Electronic Device & Circuits - Feedback amplifier, negative feedback, Sinusoidal oscillators, Power amplifiers (Unit 2)", type: "study", subject: "Electronic Device & Circuits", completed: false },
-    { id: "13", title: "Programming Lab–I (Java Technologies) - Java Collective Frame Work (Unit 2)", type: "study", subject: "Programming Lab–I (Java Technologies)", completed: false },
-    { id: "14", title: "Computer Engineering Workshop - Transformer, Function Generator, SMPS, LED, Voltage Regulator, Battery, IFT, Relay (Unit 2)", type: "study", subject: "Computer Engineering Workshop", completed: false }
+    { id: "12", title: "Electronic Device & Circuits - Feedback amplifier, negative feedback, Sinusoidal oscillators, Power amplifiers (Unit 2)", type: "study", subject: "Electronic Device & Circuits", completed: false }
   ] },
   { day: "Wednesday", date: "2025-12-10", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "15", title: "Discrete Structures - Propositional Logic (Unit 3)", type: "study", subject: "Discrete Structures", completed: false },
     { id: "16", title: "Digital Circuit & Design - Linear wave shaping circuits, Bi-stable, Mono stable & Astable multivibrator, Schmitt Trigger circuits (Unit 3)", type: "study", subject: "Digital Circuit & Design", completed: false },
     { id: "17", title: "Introduction to AI, Machine Learning & Robotics - Introduction to Machine Learning (Unit 3)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
     { id: "18", title: "Computer System Organization - Input Output Organization (Unit 3)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "19", title: "Electronic Device & Circuits - Switching characteristics of diode and transistor, Multivibrators, Clippers and clampers (Unit 3)", type: "study", subject: "Electronic Device & Circuits", completed: false },
-    { id: "20", title: "Programming Lab–I (Java Technologies) - Advance Java Features (Unit 3)", type: "study", subject: "Programming Lab–I (Java Technologies)", completed: false },
-    { id: "21", title: "Computer Engineering Workshop - Testing & Measurement Tools (Unit 3)", type: "study", subject: "Computer Engineering Workshop", completed: false }
+    { id: "19", title: "Electronic Device & Circuits - Switching characteristics of diode and transistor, Multivibrators, Clippers and clampers (Unit 3)", type: "study", subject: "Electronic Device & Circuits", completed: false }
   ] },
   { day: "Thursday", date: "2025-12-11", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "22", title: "Discrete Structures - Graph Theory (Unit 4)", type: "study", subject: "Discrete Structures", completed: false },
     { id: "23", title: "Digital Circuit & Design - Decoders, Encoders, Multiplexers, De-multiplexers, Introduction to various semiconductor memories (Unit 4)", type: "study", subject: "Digital Circuit & Design", completed: false },
     { id: "24", title: "Introduction to AI, Machine Learning & Robotics - Models Based on Decision Trees, Bayesian Learning, Clustering (Unit 4)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
     { id: "25", title: "Computer System Organization - Memory organization (Unit 4)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "26", title: "Electronic Device & Circuits - Operational amplifier characteristics, slew rate, full power bandwidth (Unit 4)", type: "study", subject: "Electronic Device & Circuits", completed: false },
-    { id: "27", title: "Programming Lab–I (Java Technologies) - Advance Java Technologies (Unit 4)", type: "study", subject: "Programming Lab–I (Java Technologies)", completed: false },
-    { id: "28", title: "Computer Engineering Workshop - Printed Circuit Board (Unit 4)", type: "study", subject: "Computer Engineering Workshop", completed: false }
+    { id: "26", title: "Electronic Device & Circuits - Operational amplifier characteristics, slew rate, full power bandwidth (Unit 4)", type: "study", subject: "Electronic Device & Circuits", completed: false }
   ] },
   { day: "Friday", date: "2025-12-12", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "29", title: "Discrete Structures - Posets, Hasse Diagram and Lattices, Combinatorics, Recurrence Relation and Generating Function (Unit 5)", type: "study", subject: "Discrete Structures", completed: false },
     { id: "30", title: "Digital Circuit & Design - Introduction of Analog to Digital & Digital to Analog converters, sample & hold circuits and V-F converters (Unit 5)", type: "study", subject: "Digital Circuit & Design", completed: false },
     { id: "31", title: "Introduction to AI, Machine Learning & Robotics - Basics of Robotics Overview (Unit 5)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
     { id: "32", title: "Computer System Organization - Multiprocessors (Unit 5)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "33", title: "Electronic Device & Circuits - Regulated power supplies, Series and shunt regulators, IC voltage regulators, SMPS, UPS (Unit 5)", type: "study", subject: "Electronic Device & Circuits", completed: false },
-    { id: "34", title: "Programming Lab–I (Java Technologies) - Advance Web/Internet Programming (Unit 5)", type: "study", subject: "Programming Lab–I (Java Technologies)", completed: false },
-    { id: "35", title: "Computer Engineering Workshop - Personal Computer Assembling (Unit 5)", type: "study", subject: "Computer Engineering Workshop", completed: false }
+    { id: "33", title: "Electronic Device & Circuits - Regulated power supplies, Series and shunt regulators, IC voltage regulators, SMPS, UPS (Unit 5)", type: "study", subject: "Electronic Device & Circuits", completed: false }
   ] },
   { day: "Saturday", date: "2025-12-13", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "36", title: "Weekly Review - All Subjects", type: "study", completed: false },
