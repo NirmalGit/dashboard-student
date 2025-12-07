@@ -132,7 +132,7 @@ const App: React.FC = () => {
           />
         )}
         {activeTab === 'syllabus' && (
-          <Syllabus completedTasks={completedTasks} toggleTask={toggleTask} />
+          <Syllabus completedTasks={completedTasks} toggleTask={toggleTask} onSyllabusUpdate={() => setPlan(generatePlanFromSubjects(SUBJECTS))} />
         )}
       </main>
     </div>
