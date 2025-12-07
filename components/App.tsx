@@ -121,7 +121,7 @@ const App: React.FC = () => {
       </nav>
 
       <main>
-        {activeTab === 'dashboard' && <Dashboard completedTasks={completedTasks} />}
+        {activeTab === 'dashboard' && <Dashboard completedTasks={completedTasks} subjects={SUBJECTS} />}
         {activeTab === 'planner' && (
           <Planner
             plan={plan}

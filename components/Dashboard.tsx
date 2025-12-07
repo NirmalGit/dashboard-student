@@ -1,15 +1,16 @@
 import React from 'react';
-import { SUBJECTS } from '../data';
+// import { SUBJECTS } from '../data';
 import { calculateSubjectProgress } from '../utils';
 import ProgressBar from './ProgressBar';
 
 interface DashboardProps {
   completedTasks: Set<string>;
+  subjects: Array<{ name: string; units: string[]; totalUnits: number }>;
 }
 
-const Dashboard: React.FC<DashboardProps> = ({ completedTasks }) => {
-  const totalProgress = SUBJECTS.reduce((acc, subject) =>
-    acc + calculateSubjectProgress(subject, completedTasks), 0) / SUBJECTS.length;
+const Dashboard: React.FC<DashboardProps> = ({ completedTasks, subjects }) => {
+  const totalProgress = subjects.reduce((acc, subject) =>
+    acc + calculateSubjectProgress(subject, completedTasks), 0) / subjects.length;
 
   return (
     <div className="p-6">
@@ -21,7 +22,7 @@ const Dashboard: React.FC<DashboardProps> = ({ completedTasks }) => {
           <ProgressBar progress={totalProgress} />
         </div>
 
-        {SUBJECTS.map(subject => {
+        {subjects.map(subject => {
           const progress = calculateSubjectProgress(subject, completedTasks);
           return (
             <div key={subject.name} className="bg-white p-6 rounded-lg shadow-md">
