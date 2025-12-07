@@ -56,25 +56,39 @@ const App: React.FC = () => {
   };
 
   const toggleTask = (taskId: string) => {
-    setCompletedTasks(prev => {
-      const newSet = new Set(prev);
-      if (newSet.has(taskId)) {
-        newSet.delete(taskId);
-      } else {
-        newSet.add(taskId);
-      }
-      return newSet;
-    });
-
-    // Also update the completed property in the plan array
-    setPlan(prevPlan =>
-      prevPlan.map(day => ({
+    setPlan(prevPlan => {
+      let dashboardKey = null;
+      const newPlan = prevPlan.map(day => ({
         ...day,
-        tasks: day.tasks.map(task =>
-          task.id === taskId ? { ...task, completed: !task.completed } : task
-        )
-      }))
-    );
+        tasks: day.tasks.map(task => {
+          if (task.id === taskId) {
+            // Build dashboard key if possible
+            if (task.subject && task.title) {
+              const unitMatch = task.title.match(/\(Unit (\d+)\)/);
+              let unitIdx = unitMatch ? parseInt(unitMatch[1], 10) - 1 : 0;
+              const units = SUBJECTS.find(s => s.name === task.subject)?.units || [];
+              const unit = units[unitIdx] || '';
+              dashboardKey = `task_${task.subject}_${unit}_completed`;
+            }
+            return { ...task, completed: !task.completed };
+          }
+          return task;
+        })
+      }));
+      // Update completedTasks with both formats
+      setCompletedTasks(prev => {
+        const newSet = new Set(prev);
+        if (newSet.has(taskId)) {
+          newSet.delete(taskId);
+          if (dashboardKey) newSet.delete(dashboardKey);
+        } else {
+          newSet.add(taskId);
+          if (dashboardKey) newSet.add(dashboardKey);
+        }
+        return newSet;
+      });
+      return newPlan;
+    });
   };
 
   if (!isLoggedIn) {
