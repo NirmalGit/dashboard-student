@@ -64,6 +64,16 @@ const App: React.FC = () => {
       }
       return newSet;
     });
+
+    // Also update the completed property in the plan array
+    setPlan(prevPlan =>
+      prevPlan.map(day => ({
+        ...day,
+        tasks: day.tasks.map(task =>
+          task.id === taskId ? { ...task, completed: !task.completed } : task
+        )
+      }))
+    );
   };
 
   if (!isLoggedIn) {

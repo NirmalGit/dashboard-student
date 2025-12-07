@@ -162,16 +162,13 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
                               snapshot.isDragging ? 'shadow-lg bg-white' : 'bg-gray-50'
                             } ${userRole === 'Admin' ? '' : 'cursor-move'}`}
                           >
-                            <button
-                              onClick={() => toggleTask(task.id)}
-                              className="text-gray-500 hover:text-green-500"
-                            >
-                              {task.completed ? (
-                                <CheckCircle className="w-5 h-5 text-green-500" />
-                              ) : (
-                                <Circle className="w-5 h-5" />
-                              )}
-                            </button>
+                            <input
+                              type="checkbox"
+                              checked={task.completed}
+                              onChange={() => toggleTask(task.id)}
+                              className="accent-green-500 w-5 h-5 cursor-pointer"
+                              aria-label={task.title}
+                            />
                             <div className="flex-1">
                               <div className={`text-sm ${task.completed ? 'line-through text-gray-500' : ''}`}>
                                 {task.title}
