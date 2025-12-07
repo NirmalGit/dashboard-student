@@ -89,13 +89,19 @@ export const EXAMS = [
 
 // PLAN dynamically generated for 8th Dec 2025 to 2nd Jan 2026 with exam and revision days
 export const PLAN: DayPlan[] = [
-  { day: "Monday", date: "2025-12-08", isExamDay: false, isRevisionDay: false, tasks: [
-    { id: "1", title: "Discrete Structures - Set Theory, Relation, Function, Theorem Proving Techniques (Unit 1)", type: "study", subject: "Discrete Structures", completed: false },
-    { id: "2", title: "Digital Circuit & Design - Number systems & codes, Binary arithmetic, Boolean algebra and switching function (Unit 1)", type: "study", subject: "Digital Circuit & Design", completed: false },
-    { id: "3", title: "Introduction to AI, Machine Learning & Robotics - Introduction to Artificial Intelligence Fundamentals (Unit 1)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
-    { id: "4", title: "Computer System Organization - Computer Basics and CPU (Unit 1)", type: "study", subject: "Computer System Organization", completed: false },
-    { id: "5", title: "Electronic Device & Circuits - Semiconductor device, theory of P-N junction, temperature dependence and break down characteristics (Unit 1)", type: "study", subject: "Electronic Device & Circuits", completed: false }
-  ] },
+  {
+    day: "Monday",
+    date: "2025-12-08",
+    isExamDay: false,
+    isRevisionDay: false,
+    tasks: [
+      { id: "1", title: "Discrete Structures - Set Theory, Relation, Function, Theorem Proving Techniques (Unit 1)", type: "study", subject: "Discrete Structures", completed: false },
+      { id: "2", title: "Digital Circuit & Design - Number systems & codes, Binary arithmetic, Boolean algebra and switching function (Unit 1)", type: "study", subject: "Digital Circuit & Design", completed: false },
+      { id: "3", title: "Introduction to AI, Machine Learning & Robotics - Introduction to Artificial Intelligence Fundamentals (Unit 1)", type: "study", subject: "Introduction to AI, Machine Learning & Robotics", completed: false },
+      { id: "4", title: "Computer System Organization - Computer Basics and CPU (Unit 1)", type: "study", subject: "Computer System Organization", completed: false },
+      { id: "5", title: "Electronic Device & Circuits - Semiconductor device, theory of P-N junction, temperature dependence and break down characteristics (Unit 1)", type: "study", subject: "Electronic Device & Circuits", completed: false }
+    ]
+  },
   { day: "Tuesday", date: "2025-12-09", isExamDay: false, isRevisionDay: false, tasks: [
     { id: "8", title: "Discrete Structures - Algebraic Structures: Definition, Properties, types (Unit 2)", type: "study", subject: "Discrete Structures", completed: false },
     { id: "9", title: "Digital Circuit & Design - Introduction to logic gates, Universal gate, Half adder, Half subtractor, Full adder, Full subtractor circuits (Unit 2)", type: "study", subject: "Digital Circuit & Design", completed: false },
@@ -202,3 +208,28 @@ export const PLAN: DayPlan[] = [
     { id: "70", title: "Exam Day - Electronic Device & Circuits (CS305)", type: "exam", subject: "Electronic Device & Circuits", completed: false }
   ] }
 ];
+
+export function generatePlanFromSubjects(subjects: Subject[]): DayPlan[] {
+  const subjectMap: { [name: string]: Subject } = {};
+  subjects.forEach(subj => { subjectMap[subj.name] = subj; });
+
+  return PLAN.map(day => {
+    if (!day.isExamDay && !day.isRevisionDay) {
+      const newTasks = day.tasks.map((task, idx) => {
+        if (task.subject && subjectMap[task.subject]) {
+          const match = task.title.match(/\(Unit (\d+)\)/);
+          let unitIdx = match ? parseInt(match[1], 10) - 1 : idx;
+          const units = subjectMap[task.subject].units;
+          const unitTitle = units[unitIdx] || '';
+          return {
+            ...task,
+            title: `${task.subject} - ${unitTitle} (Unit ${unitIdx + 1})`
+          };
+        }
+        return task;
+      });
+      return { ...day, tasks: newTasks };
+    }
+    return { ...day };
+  });
+}

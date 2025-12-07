@@ -6,6 +6,7 @@ import Login from '../Login';
 import Dashboard from './Dashboard';
 import Planner from './Planner';
 import Syllabus from './Syllabus';
+import { generatePlanFromSubjects, SUBJECTS } from '../data';
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -47,7 +48,7 @@ const App: React.FC = () => {
     setUserRole(role);
     localStorage.setItem('user', JSON.stringify({ username: 'anugrah', role }));
   };
-
+  
   const handleLogout = () => {
     setIsLoggedIn(false);
     setUserRole('Student');

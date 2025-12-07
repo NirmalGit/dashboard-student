@@ -5,9 +5,10 @@ import { SUBJECTS } from '../data';
 interface SyllabusProps {
   completedTasks: Set<string>;
   toggleTask: (taskId: string) => void;
+  onSyllabusUpdate?: () => void;
 }
 
-const Syllabus: React.FC<SyllabusProps> = ({ completedTasks, toggleTask }) => {
+const Syllabus: React.FC<SyllabusProps> = ({ completedTasks, toggleTask, onSyllabusUpdate }) => {
   const [editingSubject, setEditingSubject] = useState<string | null>(null);
   const [editUnits, setEditUnits] = useState<string[]>([]);
 
@@ -39,6 +40,7 @@ const Syllabus: React.FC<SyllabusProps> = ({ completedTasks, toggleTask }) => {
       }
       setEditingSubject(null);
     }
+      if (onSyllabusUpdate) onSyllabusUpdate();
   };
 
   const handleCancel = () => {
