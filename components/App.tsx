@@ -14,6 +14,7 @@ const App: React.FC = () => {
   const [activeTab, setActiveTab] = useState('dashboard');
   const [plan, setPlan] = useState<DayPlan[]>(PLAN);
   const [completedTasks, setCompletedTasks] = useState<Set<string>>(new Set());
+  const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
     const savedCompletedTasks = localStorage.getItem('completedTasks');
@@ -29,9 +30,10 @@ const App: React.FC = () => {
     // Check for user authentication
     const user = localStorage.getItem('user');
     if (user) {
-      const { role } = JSON.parse(user);
+      const { role, username } = JSON.parse(user);
       setIsLoggedIn(true);
       setUserRole(role as UserRole);
+      setUsername(username || '');
     }
   }, []);
 
@@ -43,10 +45,11 @@ const App: React.FC = () => {
     localStorage.setItem('studyPlan', JSON.stringify(plan));
   }, [plan]);
 
-  const handleLogin = (role: UserRole) => {
+  const handleLogin = (role: UserRole, name: string = 'anugrah') => {
     setIsLoggedIn(true);
     setUserRole(role);
-    localStorage.setItem('user', JSON.stringify({ username: 'anugrah', role }));
+    setUsername(name);
+    localStorage.setItem('user', JSON.stringify({ username: name, role }));
   };
   
   const handleLogout = () => {
@@ -135,7 +138,7 @@ const App: React.FC = () => {
       </nav>
 
       <main>
-        {activeTab === 'dashboard' && <Dashboard completedTasks={completedTasks} subjects={SUBJECTS} />}
+        {activeTab === 'dashboard' && <Dashboard completedTasks={completedTasks} subjects={SUBJECTS} username={username} />}
         {activeTab === 'planner' && (
           <Planner
             plan={plan}
