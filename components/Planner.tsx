@@ -21,10 +21,13 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
     if (!result.destination) return;
 
     const { source, destination } = result;
+    // debug
+    // eslint-disable-next-line no-console
+    console.log('[Planner] onDragEnd', { source, destination });
 
     if (source.droppableId === destination.droppableId) {
       // Reordering within the same day
-      const dayIndex = plan.findIndex(day => day.day === source.droppableId);
+      const dayIndex = plan.findIndex(day => day.date === source.droppableId);
       const newTasks = Array.from(plan[dayIndex].tasks);
       const [reorderedTask] = newTasks.splice(source.index, 1);
       newTasks.splice(destination.index, 0, reorderedTask);
@@ -32,10 +35,13 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
       const newPlan = [...plan];
       newPlan[dayIndex] = { ...newPlan[dayIndex], tasks: newTasks };
       setPlan(newPlan);
+      try { localStorage.setItem('studyPlan', JSON.stringify(newPlan)); } catch (e) { /* ignore */ }
+      // eslint-disable-next-line no-console
+      console.log('[Planner] moved within same day — updated plan saved');
     } else {
       // Moving between days
-      const sourceDayIndex = plan.findIndex(day => day.day === source.droppableId);
-      const destDayIndex = plan.findIndex(day => day.day === destination.droppableId);
+      const sourceDayIndex = plan.findIndex(day => day.date === source.droppableId);
+      const destDayIndex = plan.findIndex(day => day.date === destination.droppableId);
 
       const sourceTasks = Array.from(plan[sourceDayIndex].tasks);
       const destTasks = Array.from(plan[destDayIndex].tasks);
@@ -46,6 +52,9 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
       newPlan[sourceDayIndex] = { ...newPlan[sourceDayIndex], tasks: sourceTasks };
       newPlan[destDayIndex] = { ...newPlan[destDayIndex], tasks: destTasks };
       setPlan(newPlan);
+      try { localStorage.setItem('studyPlan', JSON.stringify(newPlan)); } catch (e) { /* ignore */ }
+      // eslint-disable-next-line no-console
+      console.log('[Planner] moved between days — updated plan saved');
     }
   };
 
@@ -124,7 +133,7 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
       <DragDropContext onDragEnd={onDragEnd}>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
           {plan.map(day => (
-            <div key={day.day} className="bg-white rounded-lg shadow-md overflow-hidden">
+            <div key={day.date} className="bg-white rounded-lg shadow-md overflow-hidden">
               <div className={`p-4 ${day.isExamDay ? 'bg-red-500' : day.isRevisionDay ? 'bg-green-500' : 'bg-blue-500'} text-white`}>
                 <h3 className="text-lg font-semibold">{day.day}</h3>
                 <p className="text-sm opacity-90">{day.date}</p>
@@ -139,7 +148,7 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
                 </div>
               </div>
 
-              <Droppable droppableId={day.day}>
+              <Droppable droppableId={day.date}>
                 {(provided, snapshot) => (
                   <div
                     ref={provided.innerRef}
@@ -150,7 +159,7 @@ const Planner: React.FC<PlannerProps> = ({ plan, setPlan, completedTasks, toggle
                       <Draggable
                         draggableId={task.id}
                         index={index}
-                        isDragDisabled={userRole === 'Admin'}
+                        isDragDisabled={false}
                       >
                         {(provided, snapshot) => (
                           <div

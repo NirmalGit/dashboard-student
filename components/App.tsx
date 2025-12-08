@@ -8,6 +8,12 @@ import Planner from './Planner';
 import Syllabus from './Syllabus';
 import { generatePlanFromSubjects, SUBJECTS } from '../data';
 
+declare global {
+  interface Window {
+    __planLoaded?: boolean;
+  }
+}
+
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [userRole, setUserRole] = useState<UserRole>('Student');
@@ -17,6 +23,9 @@ const App: React.FC = () => {
   const [username, setUsername] = useState<string>('');
 
   useEffect(() => {
+    // Only load from localStorage/PLAN on initial mount
+    if (window.__planLoaded) return;
+    window.__planLoaded = true;
     const savedCompletedTasks = localStorage.getItem('completedTasks');
     if (savedCompletedTasks) {
       setCompletedTasks(new Set(JSON.parse(savedCompletedTasks)));
@@ -149,7 +158,25 @@ const App: React.FC = () => {
           />
         )}
         {activeTab === 'syllabus' && (
-          <Syllabus completedTasks={completedTasks} toggleTask={toggleTask} onSyllabusUpdate={() => setPlan(generatePlanFromSubjects(SUBJECTS))} />
+          <Syllabus completedTasks={completedTasks} toggleTask={toggleTask} onSyllabusUpdate={() => {
+            setPlan(prevPlan => {
+              const updatedPlan = generatePlanFromSubjects(SUBJECTS);
+              // Only update tasks for study days, keep manual/drag changes
+              return prevPlan.map((day, idx) => {
+                if (!day.isExamDay && !day.isRevisionDay) {
+                  // Merge updated tasks, preserve completed status and manual changes
+                  const updatedTasks = updatedPlan[idx].tasks.map((newTask, tIdx) => {
+                    const oldTask = day.tasks[tIdx];
+                    return oldTask
+                      ? { ...newTask, completed: oldTask.completed, id: oldTask.id }
+                      : newTask;
+                  });
+                  return { ...day, tasks: updatedTasks };
+                }
+                return day;
+              });
+            });
+          }} />
         )}
       </main>
     </div>
